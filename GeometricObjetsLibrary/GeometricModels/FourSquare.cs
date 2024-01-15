@@ -2,7 +2,7 @@
 
 namespace GeometricObjetsLibrary.GeometricModels;
 
-public class FourSquare : GeometricModel
+public class FourSquare : GeometricModel, IEquatable<FourSquare>
 {
     public string? Name { get; set; }
     public double CoordinateX { get; set; }
@@ -19,14 +19,28 @@ public class FourSquare : GeometricModel
     public override double Perimeter()
     {
         double perimeter = 4 * Length;
-        Console.WriteLine($"{Name}: perimeter = {perimeter}");
+        Console.WriteLine($"{Name}: perimeter = {perimeter:F2}");
         return perimeter;
     }
 
     public override double Square()
     {
         double square = Math.Pow(Length, 2);
-        Console.WriteLine($"{Name}: square = {square}");
+        Console.WriteLine($"{Name}: square = {square:F2}");
         return square;
     }
+
+    public bool Equals(FourSquare? other)
+    {
+        if (other is null)
+            return false;
+
+        return this.Name == other.Name && this.CoordinateX == other.CoordinateX
+        && this.CoordinateY == other.CoordinateY
+        && this.Length == other.Length;
+    }
+
+    public override bool Equals(object? obj) => Equals(obj as FourSquare);
+
+    public override int GetHashCode() => (Name, CoordinateX, CoordinateY, Length).GetHashCode();
 }

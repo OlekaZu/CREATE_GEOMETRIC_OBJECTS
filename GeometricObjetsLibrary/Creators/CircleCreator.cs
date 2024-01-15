@@ -17,7 +17,8 @@ public class CircleCreator : Creator
         if (_data.Length != 4 || !_data[0].Equals("circle")
         || !double.TryParse(_data[1], out double coordX)
         || !double.TryParse(_data[2], out double coordY)
-        || !double.TryParse(_data[3], out double radius))
+        || !double.TryParse(_data[3], out double radius)
+        || radius < 0)
             throw new ArgumentException("Incorrect parameters for creating Circle");
 
         return new Circle()

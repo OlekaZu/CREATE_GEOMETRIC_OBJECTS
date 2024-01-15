@@ -1,0 +1,12 @@
+point 1 2
+point 1 f
+rect 1 2 -3 4
+# rekt 1 2 -3 4
+line 10 10 20 20
+# line 10 10 20 20 45
+circle 10 10 5
+# circle 10 10 -5
+rhomb -10 10.5 15 14
+# rhomb 10 10 15.5 -14.3
+square 0.4 1.2 3
+square 0.4 1.2 0

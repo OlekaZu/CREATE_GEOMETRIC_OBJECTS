@@ -18,7 +18,8 @@ public class RhombCreator : Creator
         || !double.TryParse(_data[1], out double coordX)
         || !double.TryParse(_data[2], out double coordY)
         || !double.TryParse(_data[3], out double height)
-        || !double.TryParse(_data[4], out double width))
+        || !double.TryParse(_data[4], out double width)
+        || height < 0 || width < 0)
             throw new ArgumentException("Incorrect parameters for creating Rhomb");
 
         return new Rhomb()
@@ -26,7 +27,7 @@ public class RhombCreator : Creator
             Name = _data[0],
             CoordinateX = coordX,
             CoordinateY = coordY,
-            Heigth = height,
+            Height = height,
             Width = width
         };
     }

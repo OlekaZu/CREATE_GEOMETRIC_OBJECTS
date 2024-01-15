@@ -11,4 +11,8 @@
     <ProjectReference Include="..\GeometricObjetsLibrary\GeometricObjetsLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FilesExamples\" />
+  </ItemGroup>
+
 </Project>

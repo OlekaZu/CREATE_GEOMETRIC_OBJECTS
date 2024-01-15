@@ -17,7 +17,8 @@ public class SquareCreator : Creator
         if (_data.Length != 4 || !_data[0].Equals("square")
         || !double.TryParse(_data[1], out double coordX)
         || !double.TryParse(_data[2], out double coordY)
-        || !double.TryParse(_data[3], out double length))
+        || !double.TryParse(_data[3], out double length)
+        || length < 0)
             throw new ArgumentException("Incorrect parameters for creating Square");
 
         return new FourSquare()
