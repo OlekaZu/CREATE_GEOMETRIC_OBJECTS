@@ -13,10 +13,10 @@ public class Rhomb : GeometricModel, IEquatable<Rhomb>
 
     public Rhomb() { }
 
-    public override void Draw()
-    {
-        Console.WriteLine($"{Name} at ({CoordinateX}, {CoordinateY}), height = {Height}, width = {Width}");
-    }
+    public override string ToString() =>
+    String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), height = {Height}, width = {Width}");
+
+    public override void Draw() => Console.WriteLine(this.ToString());
 
     public override double Perimeter()
     {

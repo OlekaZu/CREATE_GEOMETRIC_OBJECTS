@@ -10,10 +10,9 @@ public class Point : GeometricModel, IEquatable<Point>
 
     public Point() { }
 
-    public override void Draw()
-    {
-        Console.WriteLine($"{Name} at ({CoordinateX}, {CoordinateY})");
-    }
+    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY})");
+
+    public override void Draw() => Console.WriteLine(this.ToString());
 
     public override double Perimeter()
     {

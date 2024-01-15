@@ -21,15 +21,8 @@ if (args.Length == 1 && File.Exists(args[0]))
                 }
             }
         }
-
-        foreach (var item in models)
-        {
-            item.Draw();
-            item.Perimeter();
-            item.Square();
-            Console.WriteLine("------");
-        }
-
+        PrintObjectsInformation(models);
+        FindDuplicates(models);
     }
     catch (ArgumentException ex)
     {
@@ -57,5 +50,33 @@ static Creator ParsingObject(string line, int count)
     return creator;
 }
 
+static void PrintObjectsInformation(List<GeometricModel> models)
+{
+    foreach (var item in models)
+    {
+        item.Draw();
+        item.Perimeter();
+        item.Square();
+        Console.WriteLine("------");
+    }
+}
+
+static void FindDuplicates(List<GeometricModel> models)
+{
+    Console.WriteLine("***Duplicates:");
+    List<GeometricModel> evenModels = [];
+    List<GeometricModel> oddModels = [];
+    for (int i = 0; i < models.Count; i++)
+    {
+        if (i % 2 == 0)
+            evenModels.Add(models[i]);
+        else
+            oddModels.Add(models[i]);
+    }
+
+    IEnumerable<GeometricModel> duplicates = evenModels.Intersect(oddModels);
+    foreach (var item in duplicates)
+        Console.WriteLine(item.ToString());
+}
 
 

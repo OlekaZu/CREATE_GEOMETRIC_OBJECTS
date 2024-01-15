@@ -11,10 +11,9 @@ public class FourSquare : GeometricModel, IEquatable<FourSquare>
 
     public FourSquare() { }
 
-    public override void Draw()
-    {
-        Console.WriteLine($"{Name} at ({CoordinateX}, {CoordinateY}), side length = {Length}");
-    }
+    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), side length = {Length}");
+
+    public override void Draw() => Console.WriteLine(this.ToString());
 
     public override double Perimeter()
     {

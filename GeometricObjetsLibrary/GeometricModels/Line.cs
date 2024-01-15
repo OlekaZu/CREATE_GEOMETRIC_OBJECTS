@@ -12,10 +12,10 @@ public class Line : GeometricModel, IEquatable<Line>
 
     public Line() { }
 
-    public override void Draw()
-    {
-        Console.WriteLine($"{Name} at ({CoordinateX1}, {CoordinateY1}), ({CoordinateX2}, {CoordinateY2})");
-    }
+    public override string ToString() =>
+    String.Format($"{Name} at ({CoordinateX1}, {CoordinateY1}), ({CoordinateX2}, {CoordinateY2})");
+
+    public override void Draw() => Console.WriteLine(this.ToString());
 
     public override double Perimeter()
     {

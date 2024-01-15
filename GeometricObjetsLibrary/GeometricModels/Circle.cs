@@ -12,10 +12,9 @@ public class Circle : GeometricModel, IEquatable<Circle>
 
     public Circle() { }
 
-    public override void Draw()
-    {
-        Console.WriteLine($"{Name} at ({CoordinateX}, {CoordinateY}), radius = {Radius}");
-    }
+    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), radius = {Radius}");
+
+    public override void Draw() => Console.WriteLine(this.ToString());
 
     public override double Perimeter()
     {
