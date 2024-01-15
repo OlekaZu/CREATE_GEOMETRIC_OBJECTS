@@ -1,7 +1,7 @@
 point 1 2
 # point 1 f
 rect 1 2 -3 4
-rekt 1 2 -3 4
+# rekt 1 2 -3 4
 line 10 10 20 20
 # line 10 10 20 20 45
 circle 10 10 5
