@@ -14,11 +14,11 @@ public class LineCreator : Creator
 
     public override GeometricModel Create()
     {
-        if (_data.Length != 5 || _data[0].Equals("line")
-        || double.TryParse(_data[1], out double coordX1) == false
-        || double.TryParse(_data[2], out double coordY1) == false
-        || double.TryParse(_data[3], out double coordX2) == false
-        || double.TryParse(_data[4], out double coordY2) == false)
+        if (_data.Length != 5 || !_data[0].Equals("line")
+        || !double.TryParse(_data[1], out double coordX1)
+        || !double.TryParse(_data[2], out double coordY1)
+        || !double.TryParse(_data[3], out double coordX2)
+        || !double.TryParse(_data[4], out double coordY2))
             throw new ArgumentException("Incorrect parameters for creating Line");
 
         return new Line()

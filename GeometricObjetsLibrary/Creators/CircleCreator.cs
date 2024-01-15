@@ -14,10 +14,10 @@ public class CircleCreator : Creator
 
     public override GeometricModel Create()
     {
-        if (_data.Length != 4 || _data[0].Equals("circle")
-        || double.TryParse(_data[1], out double coordX) == false
-        || double.TryParse(_data[2], out double coordY) == false
-        || double.TryParse(_data[3], out double radius) == false)
+        if (_data.Length != 4 || !_data[0].Equals("circle")
+        || !double.TryParse(_data[1], out double coordX)
+        || !double.TryParse(_data[2], out double coordY)
+        || !double.TryParse(_data[3], out double radius))
             throw new ArgumentException("Incorrect parameters for creating Circle");
 
         return new Circle()

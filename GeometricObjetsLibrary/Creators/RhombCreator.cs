@@ -14,11 +14,11 @@ public class RhombCreator : Creator
 
     public override GeometricModel Create()
     {
-        if (_data.Length != 5 || _data[0].Equals("rhomb")
-        || double.TryParse(_data[1], out double coordX) == false
-        || double.TryParse(_data[2], out double coordY) == false
-        || double.TryParse(_data[3], out double height) == false
-        || double.TryParse(_data[4], out double width) == false)
+        if (_data.Length != 5 || !_data[0].Equals("rhomb")
+        || !double.TryParse(_data[1], out double coordX)
+        || !double.TryParse(_data[2], out double coordY)
+        || !double.TryParse(_data[3], out double height)
+        || !double.TryParse(_data[4], out double width))
             throw new ArgumentException("Incorrect parameters for creating Rhomb");
 
         return new Rhomb()

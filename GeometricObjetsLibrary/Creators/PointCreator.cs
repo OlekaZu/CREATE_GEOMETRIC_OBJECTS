@@ -13,9 +13,9 @@ public class PointCreator : Creator
 
     public override GeometricModel Create()
     {
-        if (_data.Length != 3 || _data[0].Equals("point")
-        || double.TryParse(_data[1], out double coordX) == false
-        || double.TryParse(_data[2], out double coordY) == false)
+        if (_data.Length != 3 || !_data[0].Equals("point")
+        || !double.TryParse(_data[1], out double coordX)
+        || !double.TryParse(_data[2], out double coordY))
             throw new ArgumentException("Incorrect parameters for creating Point");
 
         return new Point()
