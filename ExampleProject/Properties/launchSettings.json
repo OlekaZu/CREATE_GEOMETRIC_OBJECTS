@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExampleProject": {
+      "commandName": "Project",
+      "commandLineArgs": "E:\\CODING\\PetroGM\\CREATE_GEOMETRIC_OBJECTS\\ExampleProject\\FilesExamples\\text_1.txt"
+    }
+  }
+}
