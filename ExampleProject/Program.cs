@@ -16,7 +16,7 @@ if (args.Length == 1 && File.Exists(args[0]))
                 ++count;
                 if (line.Split()[0] != "#")
                 {
-                    var creator = ParsingObject(line, count);
+                    var creator = ParsingObject(line);
                     models.Add(creator.Create());
                 }
             }
@@ -34,7 +34,7 @@ else
     Console.WriteLine("Something went wrong. Check the way of input file and retry.");
 }
 
-static Creator ParsingObject(string line, int count)
+static Creator ParsingObject(string line)
 {
     string firstWord = line.Split(' ')[0];
     Creator creator = firstWord switch
@@ -45,7 +45,7 @@ static Creator ParsingObject(string line, int count)
         "rhomb" => new RhombCreator(line),
         "rect" => new RectCreator(line),
         "square" => new SquareCreator(line),
-        _ => throw new ArgumentException($"Unknown object in line {count}")
+        _ => throw new ArgumentException($"Unknown object")
     };
     return creator;
 }
