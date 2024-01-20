@@ -12,15 +12,8 @@
                 text_3.txt
         Program.cs
         ExampleProject.csproj
- GeometricObjetsLibrary/
-        Creators/
-                CircleCreator.cs
-                LineCreator.cs
-                PointCreator.cs
-                RectCreator.cs
-                RhombCreator.cs
-                SquareCreator.cs
-        GeometricModels/
+ GeometryObjectsShared/
+        GeometricObjects/
                 Circle.cs
                 FourSquare.cs
                 Line.cs
@@ -28,19 +21,20 @@
                 Rect.cs
                 Rhomb.cs
         Creator.cs
-        GeometricModel.cs
-        GeometricObjetsLibrary.csproj
+        IGeometricObject.cs
+        GeometryObjectsShared.shproj
+        GeometryObjectsShared.projitems
  CreateGeometricObjects.sln
 ```
 
 Приложение состоит из 2-х .NET проектов:
 
-- библиотеки классов (**GeometricObjetsLibrary**), создающей на выходе dll-файл;
+- общего проекта (**GeometricObjetsShared**), на который ссылается консольное приложение;
 - консольного приложения (**ExampleProject**), выводящего результат в терминал.
 
-### Библиотека классов геометрических объектов (GeometricObjetsLibrary)
+### Классы геометрических объектов (проект GeometryObjectsShared)
 
-Библиотека построена в помощью **_паттерна Фабрика_**. Она реализует создание объектов следующих классов:
+Классы создаются с помощью статического класса **Creator** на основе интерфейса **IGeometricObject**. На текущий момент проект реализует создание объектов следующих классов:
 
 1. **Circle** - круг, описывается координатами центра и радиусом.
 2. **FourSquare** - квадрат, описывается координатами левой нижней точки и длиной стороны.
@@ -71,9 +65,9 @@ circle: perimeter = 60.34
 circle: square = 40.15
 ```
 
-####**Важно!** Для объектов **_прямая_** и **_точка_** методы **Perimeter** и **Square** возвращают всегда **0**. Для объекта **_круг_** метод **Perimeter** возвращает **длину окружности** заданного круга.
+#### **Важно!** Для объектов **_прямая_** и **_точка_** методы **Perimeter** и **Square** возвращают всегда **0**. Для объекта **_круг_** метод **Perimeter** возвращает **длину окружности** заданного круга.
 
-Также библиотека реализует классы-создатели (**_Creators_**) для каждого типа объекта по заданной строке.
+Экземляр каждого класса создаётся через статический метод **_Create(string input)_** статического класса **Creator** путём передачи в метод определённой строки для каждого типа объекта.
 Формат строки для:
 
 1. **Circle**: сirclе x y r
@@ -83,7 +77,7 @@ circle: square = 40.15
 5. **Rect**: rеct x1 y1 x2 y2
 6. **Rhomb**: rhomb x y h w
 
-####**Важно!** Разделителем целой и дробной части в числовых параметрах является **точка(.)**.
+#### **Важно!** При считывании строки разделителем целой и дробной части в числовых параметрах является **точка(.)**.
 
 ### Запуск приложения через командную строку
 
