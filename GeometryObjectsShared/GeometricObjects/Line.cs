@@ -1,35 +1,48 @@
-﻿using System;
+﻿using GeometryObjectsShared;
+using System;
 
-namespace GeometricObjetsLibrary.GeometricModels;
+namespace GeometricObjectsShared.GeometricObjects;
 
-public class Line : GeometricModel, IEquatable<Line>
+public class Line : IGeometricObject, IEquatable<Line>
 {
-    public string? Name { get; set; }
     public double CoordinateX1 { get; set; }
     public double CoordinateY1 { get; set; }
     public double CoordinateX2 { get; set; }
     public double CoordinateY2 { get; set; }
+    public string Name { get; set; } = "line";
 
-    public Line() { }
+    public Line(string[] data)
+    {
+        if (data.Length != 5
+        || !double.TryParse(data[1], out double coordX1)
+        || !double.TryParse(data[2], out double coordY1)
+        || !double.TryParse(data[3], out double coordX2)
+        || !double.TryParse(data[4], out double coordY2))
+            throw new ArgumentException("Incorrect parameters for creating Line");
+        CoordinateX1 = coordX1;
+        CoordinateY1 = coordY1;
+        CoordinateX2 = coordX2;
+        CoordinateY2 = coordY2;
+    }
 
-    public override string ToString() =>
-    String.Format($"{Name} at ({CoordinateX1}, {CoordinateY1}), ({CoordinateX2}, {CoordinateY2})");
+    public void Draw() => Console.WriteLine(this.ToString());
 
-    public override void Draw() => Console.WriteLine(this.ToString());
-
-    public override double Perimeter()
+    public double Perimeter()
     {
         double perimeter = 0;
         Console.WriteLine($"{Name}: perimeter = {perimeter:F2}");
         return perimeter;
     }
 
-    public override double Square()
+    public double Square()
     {
         double square = 0;
         Console.WriteLine($"{Name}: square = {square:F2}");
         return square;
     }
+
+    public override string ToString() =>
+    String.Format($"{Name} at ({CoordinateX1}, {CoordinateY1}), ({CoordinateX2}, {CoordinateY2})");
 
     public bool Equals(Line? other)
     {

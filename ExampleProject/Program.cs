@@ -1,13 +1,15 @@
-﻿using GeometricObjetsLibrary;
-using GeometricObjetsLibrary.Creators;
+﻿using GeometryObjectsShared;
+using System.Globalization;
 using System.IO;
+using System.Text;
 
 if (args.Length == 1 && File.Exists(args[0]))
 {
     int count = 0;
     try
     {
-        List<GeometricModel> models = [];
+        List<IGeometricObject> models = [];
+
         using (StreamReader reader = new(args[0]))
         {
             string? line;
@@ -16,11 +18,12 @@ if (args.Length == 1 && File.Exists(args[0]))
                 ++count;
                 if (line.Split()[0] != "#")
                 {
-                    var creator = ParsingObject(line);
-                    models.Add(creator.Create());
+                    models.Add(Creator.CreateObject(line));
                 }
             }
         }
+        // чтобы в консоль выводилась точка как разделитель десятичных чисел
+        CultureInfo.CurrentCulture = new CultureInfo("en-US");
         PrintObjectsInformation(models);
         FindDuplicates(models);
     }
@@ -34,23 +37,7 @@ else
     Console.WriteLine("Something went wrong. Check the way of input file and retry.");
 }
 
-static Creator ParsingObject(string line)
-{
-    string firstWord = line.Split(' ')[0];
-    Creator creator = firstWord switch
-    {
-        "circle" => new CircleCreator(line),
-        "line" => new LineCreator(line),
-        "point" => new PointCreator(line),
-        "rhomb" => new RhombCreator(line),
-        "rect" => new RectCreator(line),
-        "square" => new SquareCreator(line),
-        _ => throw new ArgumentException($"Unknown object")
-    };
-    return creator;
-}
-
-static void PrintObjectsInformation(List<GeometricModel> models)
+static void PrintObjectsInformation(List<IGeometricObject> models)
 {
     foreach (var item in models)
     {
@@ -61,11 +48,11 @@ static void PrintObjectsInformation(List<GeometricModel> models)
     }
 }
 
-static void FindDuplicates(List<GeometricModel> models)
+static void FindDuplicates(List<IGeometricObject> models)
 {
     Console.WriteLine("***Duplicates:");
-    List<GeometricModel> evenModels = [];
-    List<GeometricModel> oddModels = [];
+    List<IGeometricObject> evenModels = [];
+    List<IGeometricObject> oddModels = [];
     for (int i = 0; i < models.Count; i++)
     {
         if (i % 2 == 0)
@@ -74,7 +61,7 @@ static void FindDuplicates(List<GeometricModel> models)
             oddModels.Add(models[i]);
     }
 
-    IEnumerable<GeometricModel> duplicates = evenModels.Intersect(oddModels);
+    IEnumerable<IGeometricObject> duplicates = evenModels.Intersect(oddModels);
     foreach (var item in duplicates)
         Console.WriteLine(item.ToString());
 }

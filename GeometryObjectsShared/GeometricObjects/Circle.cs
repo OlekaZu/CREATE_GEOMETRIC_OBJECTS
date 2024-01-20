@@ -1,34 +1,46 @@
-﻿using System;
+﻿using GeometricObjectsShared;
+using GeometryObjectsShared;
+using System;
 using System.Reflection.Metadata;
 
-namespace GeometricObjetsLibrary.GeometricModels;
+namespace GeometricObjectsShared.GeometricObjects;
 
-public class Circle : GeometricModel, IEquatable<Circle>
+public class Circle : IGeometricObject, IEquatable<Circle>
 {
-    public string? Name { get; set; }
     public double CoordinateX { get; set; }
     public double CoordinateY { get; set; }
     public double Radius { get; set; }
+    public string Name { get; set; } = "circle";
 
-    public Circle() { }
+    public Circle(string[] data)
+    {
+        if (data.Length != 4 || !double.TryParse(data[1], out double coordX)
+          || !double.TryParse(data[2], out double coordY)
+          || !double.TryParse(data[3], out double radius)
+          || radius < 0)
+            throw new ArgumentException("Incorrect parameters for creating Circle");
+        CoordinateX = coordX;
+        CoordinateY = coordY;
+        Radius = radius;
+    }
 
-    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), radius = {Radius}");
+    public void Draw() => Console.WriteLine(this.ToString());
 
-    public override void Draw() => Console.WriteLine(this.ToString());
-
-    public override double Perimeter()
+    public double Perimeter()
     {
         double perimeter = 2 * Math.PI * Radius;
         Console.WriteLine($"{Name}: perimeter = {perimeter:F2}");
         return perimeter;
     }
 
-    public override double Square()
+    public double Square()
     {
         double square = Math.PI * Math.Pow(Radius, 2);
         Console.WriteLine($"{Name}: square = {square:F2}");
         return square;
     }
+
+    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), radius = {Radius}");
 
     public bool Equals(Circle? other)
     {
