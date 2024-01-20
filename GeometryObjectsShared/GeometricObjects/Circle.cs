@@ -7,8 +7,7 @@ namespace GeometricObjectsShared.GeometricObjects;
 
 public class Circle : IGeometricObject, IEquatable<Circle>
 {
-    public double CoordinateX { get; set; }
-    public double CoordinateY { get; set; }
+    public Point Centre { get; set; }
     public double Radius { get; set; }
     public string Name { get; set; } = "circle";
 
@@ -19,8 +18,7 @@ public class Circle : IGeometricObject, IEquatable<Circle>
           || !double.TryParse(data[3], out double radius)
           || radius < 0)
             throw new ArgumentException("Incorrect parameters for creating Circle");
-        CoordinateX = coordX;
-        CoordinateY = coordY;
+        Centre = new() { X = coordX, Y = coordY };
         Radius = radius;
     }
 
@@ -40,19 +38,18 @@ public class Circle : IGeometricObject, IEquatable<Circle>
         return square;
     }
 
-    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), radius = {Radius}");
+    public override string ToString() => String.Format($"{Name} at ({Centre.X}, {Centre.Y}), radius = {Radius}");
 
     public bool Equals(Circle? other)
     {
         if (other is null)
             return false;
 
-        return this.Name == other.Name && this.CoordinateX == other.CoordinateX
-        && this.CoordinateY == other.CoordinateY
-        && this.Radius == other.Radius;
+        return Name == other.Name && Centre.Equals(other.Centre)
+        && Radius == other.Radius;
     }
 
     public override bool Equals(object? obj) => Equals(obj as Circle);
 
-    public override int GetHashCode() => (Name, CoordinateX, CoordinateY, Radius).GetHashCode();
+    public override int GetHashCode() => (Name, Centre, Radius).GetHashCode();
 }

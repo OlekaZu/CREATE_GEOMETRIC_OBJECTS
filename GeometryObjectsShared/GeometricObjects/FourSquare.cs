@@ -5,8 +5,7 @@ namespace GeometricObjectsShared.GeometricObjects;
 
 public class FourSquare : IGeometricObject, IEquatable<FourSquare>
 {
-    public double CoordinateX { get; set; }
-    public double CoordinateY { get; set; }
+    public Point PointOne { get; set; }
     public double Length { get; set; }
     public string Name { get; set; } = "square";
 
@@ -18,8 +17,7 @@ public class FourSquare : IGeometricObject, IEquatable<FourSquare>
             || !double.TryParse(data[3], out double length)
             || length < 0)
             throw new ArgumentException("Incorrect parameters for creating Square");
-        CoordinateX = coordX;
-        CoordinateY = coordY;
+        PointOne = new() { X = coordX, Y = coordY };
         Length = length;
     }
 
@@ -39,19 +37,18 @@ public class FourSquare : IGeometricObject, IEquatable<FourSquare>
         return square;
     }
 
-    public override string ToString() => String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), side length = {Length}");
+    public override string ToString() => String.Format($"{Name} at ({PointOne.X}, {PointOne.Y}), side length = {Length}");
 
     public bool Equals(FourSquare? other)
     {
         if (other is null)
             return false;
 
-        return this.Name == other.Name && this.CoordinateX == other.CoordinateX
-        && this.CoordinateY == other.CoordinateY
-        && this.Length == other.Length;
+        return Name == other.Name && PointOne.Equals(other.PointOne)
+        && Length == other.Length;
     }
 
     public override bool Equals(object? obj) => Equals(obj as FourSquare);
 
-    public override int GetHashCode() => (Name, CoordinateX, CoordinateY, Length).GetHashCode();
+    public override int GetHashCode() => (Name, PointOne, Length).GetHashCode();
 }

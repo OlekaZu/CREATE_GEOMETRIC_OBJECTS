@@ -6,8 +6,7 @@ namespace GeometricObjectsShared.GeometricObjects;
 
 public class Rhomb : IGeometricObject, IEquatable<Rhomb>
 {
-    public double CoordinateX { get; set; }
-    public double CoordinateY { get; set; }
+    public Point Centre { get; set; }
     public double Height { get; set; }
     public double Width { get; set; }
     public string Name { get; set; } = "rhomb";
@@ -21,8 +20,7 @@ public class Rhomb : IGeometricObject, IEquatable<Rhomb>
             || !double.TryParse(data[4], out double width)
             || height < 0 || width < 0)
             throw new ArgumentException("Incorrect parameters for creating Rhomb");
-        CoordinateX = coordX;
-        CoordinateY = coordY;
+        Centre = new() { X = coordX, Y = coordY };
         Height = height;
         Width = width;
     }
@@ -44,20 +42,18 @@ public class Rhomb : IGeometricObject, IEquatable<Rhomb>
     }
 
     public override string ToString() =>
-    String.Format($"{Name} at ({CoordinateX}, {CoordinateY}), height = {Height}, width = {Width}");
+    String.Format($"{Name} at ({Centre.X}, {Centre.Y}), height = {Height}, width = {Width}");
 
     public bool Equals(Rhomb? other)
     {
         if (other is null)
             return false;
 
-        return this.Name == other.Name && this.CoordinateX == other.CoordinateX
-        && this.CoordinateY == other.CoordinateY
-        && this.Height == other.Height
-        && this.Width == other.Width;
+        return Name == Name && Centre.Equals(other.Centre) && Height == other.Height
+        && Width == other.Width;
     }
 
     public override bool Equals(object? obj) => Equals(obj as Rhomb);
 
-    public override int GetHashCode() => (Name, CoordinateX, CoordinateY, Height, Width).GetHashCode();
+    public override int GetHashCode() => (Name, Centre, Height, Width).GetHashCode();
 }
